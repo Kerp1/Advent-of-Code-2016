@@ -1,0 +1,7 @@
+[package]
+name = "AdventOfCode"
+version = "0.1.0"
+authors = ["Mattias Nilsen <mattias.m.nilsen@gmail.com>"]
+
+[dependencies]
+regex = "0.1"
