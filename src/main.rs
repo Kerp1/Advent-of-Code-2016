@@ -13,4 +13,5 @@ fn main() {
     println!("day2::task2() = {:?}", day2::task2());
 
     println!("day3::task1() = {:?}", day3::task1());
+    println!("day3::task2() = {:?}", day3::task2());
 }
