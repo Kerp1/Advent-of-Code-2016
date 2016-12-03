@@ -8,7 +8,7 @@ mod day1;
 
 
 fn main() {
-
-    day1::task1();
+    println!("day1::task1() = {:?}", day1::task1());
+    println!("day1::task2() = {:?}", day1::task2());
 
 }

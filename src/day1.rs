@@ -47,7 +47,7 @@ fn update_position(mut x : i32, mut y : i32, current_dir: &Direction, distance: 
     (x, y)
 }
 
-pub fn task1() {
+pub fn task1() -> i32 {
     let mut currently_facing = Direction::North;
 
     let mut x = 0;
@@ -69,10 +69,8 @@ pub fn task1() {
             y = y1;
         }
     }
-    x = x.abs();
-    y = y.abs();
+    x.abs() + y.abs()
 
-    println!("distance = {:#?}", (x+y));
 }
 
 pub fn task2() -> i32{
