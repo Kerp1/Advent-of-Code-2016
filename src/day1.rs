@@ -1,6 +1,7 @@
 use common;
 extern crate regex;
 
+use std::collections::HashMap;
 use regex::Regex;
 
 enum Direction {
@@ -72,4 +73,61 @@ pub fn task1() {
     y = y.abs();
 
     println!("distance = {:#?}", (x+y));
+}
+
+pub fn task2() -> i32{
+    let mut currently_facing = Direction::North;
+
+    let mut x = 0;
+    let mut y = 0;
+
+    let data = common::read_file(String::from("1.1.txt")).unwrap();
+    let re = Regex::new(r"(R|L)(\d+)").unwrap();
+    let split = data.split(",");
+
+    let mut positions = HashMap::new();
+
+
+    for split_string in split {
+        for capture in re.captures_iter(split_string) {
+            let direction = capture.at(1).unwrap();
+            let distance = capture.at(2).unwrap_or("").parse::<i32>().unwrap();
+
+            currently_facing = get_new_facing(&currently_facing, direction);
+            let (end_x, end_y) = update_position(x, y, &currently_facing, distance);
+
+
+            if x + end_x > 0 {
+                for i in x..end_x {
+                    if positions.insert((i, y), true) != None {
+                        return i.abs() + end_y.abs();
+                    }
+                }
+            } else {
+                for i in (x..end_x).rev(){
+                    if positions.insert((i, y), true) != None {
+                        return i.abs() + end_y.abs();
+                    }
+                }
+            }
+
+            if y + end_y > 0 {
+                for i in y..end_y {
+                    if positions.insert((x, i), true) != None {
+                        return end_x.abs() + i.abs();
+                    }
+                }
+            } else {
+                for i in (y..end_y).rev(){
+                    if positions.insert((x, i), true) != None {
+                        return end_x.abs() + i.abs();
+                    }
+                }
+            }
+
+            x = end_x;
+            y = end_y;
+        }
+    }
+    return 0;
 }
