@@ -1,5 +1,5 @@
 [root]
-name = "AdventOfCode"
+name = "advent_of_code"
 version = "0.1.0"
 dependencies = [
  "regex 0.1.80 (registry+https://github.com/rust-lang/crates.io-index)",
