@@ -53,7 +53,7 @@ pub fn task1() -> i32 {
     let mut x = 0;
     let mut y = 0;
 
-    let data = common::read_file(String::from("1.1.txt")).unwrap();
+    let data = common::read_file(String::from("input/day1.txt")).unwrap();
     let re = Regex::new(r"(R|L)(\d+)").unwrap();
     let split = data.split(",");
 
@@ -79,7 +79,7 @@ pub fn task2() -> i32{
     let mut x = 0;
     let mut y = 0;
 
-    let data = common::read_file(String::from("1.1.txt")).unwrap();
+    let data = common::read_file(String::from("input/day1.txt")).unwrap();
     let re = Regex::new(r"(R|L)(\d+)").unwrap();
     let split = data.split(",");
 
