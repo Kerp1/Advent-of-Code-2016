@@ -1,4 +1,5 @@
 use common;
+
 extern crate regex;
 
 use std::collections::HashMap;
@@ -11,37 +12,36 @@ enum Direction {
     East,
 }
 
-fn get_new_facing(current_dir: &Direction, turn_dir: &str) -> Direction{
-
+fn get_new_facing(current_dir: &Direction, turn_dir: &str) -> Direction {
     let new_dir = match turn_dir {
         "R" => match *current_dir {
             Direction::North => Direction::East,
             Direction::South => Direction::West,
-            Direction::East =>  Direction::South,
-            Direction::West =>  Direction::North
+            Direction::East => Direction::South,
+            Direction::West => Direction::North
         },
         "L" => match *current_dir {
             Direction::North => Direction::West,
             Direction::South => Direction::East,
-            Direction::East =>  Direction::North,
-            Direction::West =>  Direction::South
+            Direction::East => Direction::North,
+            Direction::West => Direction::South
         },
         _ => panic!("no")
     };
     return new_dir;
 }
 
-fn update_position(mut x : i32, mut y : i32, current_dir: &Direction, distance: i32) -> (i32, i32){
+fn update_position(mut x: i32, mut y: i32, current_dir: &Direction, distance: i32) -> (i32, i32) {
     x += match *current_dir {
         Direction::East => distance,
         Direction::West => -distance,
-        _               => 0
+        _ => 0
     };
 
     y += match *current_dir {
         Direction::North => distance,
         Direction::South => -distance,
-        _               => 0
+        _ => 0
     };
 
     (x, y)
@@ -70,10 +70,9 @@ pub fn task1() -> i32 {
         }
     }
     x.abs() + y.abs()
-
 }
 
-pub fn task2() -> i32{
+pub fn task2() -> i32 {
     let mut currently_facing = Direction::North;
 
     let mut x = 0;
@@ -102,7 +101,7 @@ pub fn task2() -> i32{
                     }
                 }
             } else {
-                for i in (x..end_x).rev(){
+                for i in (x..end_x).rev() {
                     if positions.insert((i, y), true) != None {
                         return i.abs() + end_y.abs();
                     }
@@ -116,7 +115,7 @@ pub fn task2() -> i32{
                     }
                 }
             } else {
-                for i in (y..end_y).rev(){
+                for i in (y..end_y).rev() {
                     if positions.insert((x, i), true) != None {
                         return end_x.abs() + i.abs();
                     }
