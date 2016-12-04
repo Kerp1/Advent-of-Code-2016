@@ -2,12 +2,13 @@ use common;
 
 extern crate regex;
 
+use std::char;
 use regex::Regex;
 use std::collections::HashMap;
 
 struct Entry {
     name: String,
-    sector_number: i32,
+    sector_number: u32,
     checksum: String,
 }
 
@@ -19,7 +20,7 @@ fn get_entries(data: &str) -> Vec<Entry> {
         for capture in re.captures_iter(row) {
             let entry = Entry {
                 name: String::from(capture.at(1).unwrap()),
-                sector_number: capture.at(2).unwrap().parse::<i32>().unwrap(),
+                sector_number: capture.at(2).unwrap().parse::<u32>().unwrap(),
                 checksum: String::from(capture.at(3).unwrap())
             };
 
@@ -40,7 +41,7 @@ fn get_checksum(name: &String) -> String {
         map
     });
 
-    let mut vec: Vec<(char, i32)> = map.into_iter().collect();
+    let mut vec: Vec<(char, u32)> = map.into_iter().collect();
 
     vec.sort_by(|&(k1, v1), &(k2, v2)| {
         if v1 == v2 {
@@ -60,11 +61,46 @@ fn is_valid_entry(entry: &Entry) -> bool {
     get_checksum(&entry.name) == entry.checksum
 }
 
-pub fn task1() -> i32 {
+fn decrypt_character(character: char, rotate: u32) -> char {
+    let mut cnum = character as u32;
+    if cnum == '-' as u32 {
+        return ' '
+    } else {
+        ;
+        cnum -= 'a' as u32;
+        cnum = (cnum + rotate) % ('z' as u32 - 'a' as u32 + 1);
+        ;
+        cnum += 'a' as u32;
+        char::from_u32(cnum).unwrap()
+    }
+}
+
+fn decrypt_name(name: &String, rotate: u32) -> String {
+    let mut decrypted_name = String::new();
+    for char in name.chars() {
+        decrypted_name.push(decrypt_character(char, rotate));
+    }
+    decrypted_name
+}
+
+pub fn task1() -> u32 {
     let data = common::read_file(String::from("input/day4.txt")).unwrap();
 
     let entries = get_entries(&data);
-    let entries: Vec<i32> = entries.iter().filter(|e| is_valid_entry(e)).map(|entry| entry.sector_number).collect();
+    let entries: Vec<u32> = entries.iter().filter(|e| is_valid_entry(e)).map(|entry| entry.sector_number).collect();
 
-    entries.iter().sum::<i32>()
+    entries.iter().sum::<u32>()
+}
+
+pub fn task2() -> u32 {
+    let data = common::read_file(String::from("input/day4.txt")).unwrap();
+    let entries = get_entries(&data);
+
+    for entry in entries {
+        let name = decrypt_name(&entry.name, entry.sector_number);
+        if name == "northpole object storage " {
+            return entry.sector_number;
+        }
+    }
+    return 0;
 }
