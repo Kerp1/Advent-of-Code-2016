@@ -41,9 +41,8 @@ fn construct_triangles(mut numbers: Vec<i32>) -> Vec<(i32, i32, i32)> {
 }
 
 fn valid_triangle(triangle: (i32, i32, i32)) -> bool {
-    return triangle.0 + triangle.1 > triangle.2 &&
-        triangle.1 + triangle.2 > triangle.0 &&
-        triangle.0 + triangle.2 > triangle.1;
+    return triangle.0 + triangle.1 > triangle.2 && triangle.1 + triangle.2 > triangle.0 &&
+           triangle.0 + triangle.2 > triangle.1;
 }
 
 fn count_valid_triangles(triangles: Vec<(i32, i32, i32)>) -> i32 {

@@ -39,7 +39,7 @@ fn move_finger(direction: char, current_number: i32, task: i32) -> i32 {
         'D' => down(current_number, task),
         'L' => left(current_number, task),
         'R' => right(current_number, task),
-        _ => panic!("Invalid direction")
+        _ => panic!("Invalid direction"),
     }
 }
 
@@ -47,7 +47,7 @@ fn up(current_number: i32, task: i32) -> i32 {
     if task == 1 {
         match current_number {
             1 | 2 | 3 => current_number,
-            _ => current_number - 3
+            _ => current_number - 3,
         }
     } else {
         match current_number {
@@ -62,7 +62,7 @@ fn down(current_number: i32, task: i32) -> i32 {
     if task == 1 {
         match current_number {
             7 | 8 | 9 => current_number,
-            _ => current_number + 3
+            _ => current_number + 3,
         }
     } else {
         match current_number {
@@ -77,12 +77,12 @@ fn left(current_number: i32, task: i32) -> i32 {
     if task == 1 {
         match current_number {
             1 | 4 | 7 => current_number,
-            _ => current_number - 1
+            _ => current_number - 1,
         }
     } else {
         match current_number {
             1 | 2 | 5 | 10 | 13 => current_number,
-            _ => current_number - 1
+            _ => current_number - 1,
         }
     }
 }
@@ -91,12 +91,12 @@ fn right(current_number: i32, task: i32) -> i32 {
     if task == 1 {
         match current_number {
             3 | 6 | 9 => current_number,
-            _ => current_number + 1
+            _ => current_number + 1,
         }
     } else {
         match current_number {
             1 | 4 | 9 | 12 | 13 => current_number,
-            _ => current_number + 1
+            _ => current_number + 1,
         }
     }
 }
@@ -109,7 +109,7 @@ fn translate(numbers: Vec<i32>) -> Vec<char> {
             11 => 'B',
             12 => 'C',
             13 => 'D',
-            _ => number.to_string().chars().next().unwrap()
+            _ => number.to_string().chars().next().unwrap(),
         };
         characters.push(character);
     }

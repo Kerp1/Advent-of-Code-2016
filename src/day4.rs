@@ -21,7 +21,7 @@ fn get_entries(data: &str) -> Vec<Entry> {
             let entry = Entry {
                 name: String::from(capture.at(1).unwrap()),
                 sector_number: capture.at(2).unwrap().parse::<u32>().unwrap(),
-                checksum: String::from(capture.at(3).unwrap())
+                checksum: String::from(capture.at(3).unwrap()),
             };
 
             entries.push(entry);
@@ -43,13 +43,7 @@ fn get_checksum(name: &String) -> String {
 
     let mut vec: Vec<(char, u32)> = map.into_iter().collect();
 
-    vec.sort_by(|&(k1, v1), &(k2, v2)| {
-        if v1 == v2 {
-            k1.cmp(&k2)
-        } else {
-            v2.cmp(&v1)
-        }
-    });
+    vec.sort_by(|&(k1, v1), &(k2, v2)| { if v1 == v2 { k1.cmp(&k2) } else { v2.cmp(&v1) } });
 
     (*vec.split_at(5).0).iter().fold(String::new(), |mut str, &(c, _)| {
         str.push(c);
@@ -64,12 +58,10 @@ fn is_valid_entry(entry: &Entry) -> bool {
 fn decrypt_character(character: char, rotate: u32) -> char {
     let mut cnum = character as u32;
     if cnum == '-' as u32 {
-        return ' '
+        return ' ';
     } else {
-        ;
         cnum -= 'a' as u32;
         cnum = (cnum + rotate) % ('z' as u32 - 'a' as u32 + 1);
-        ;
         cnum += 'a' as u32;
         char::from_u32(cnum).unwrap()
     }
@@ -87,7 +79,8 @@ pub fn task1() -> u32 {
     let data = common::read_file(String::from("input/day4.txt")).unwrap();
 
     let entries = get_entries(&data);
-    let entries: Vec<u32> = entries.iter().filter(|e| is_valid_entry(e)).map(|entry| entry.sector_number).collect();
+    let entries: Vec<u32> =
+        entries.iter().filter(|e| is_valid_entry(e)).map(|entry| entry.sector_number).collect();
 
     entries.iter().sum::<u32>()
 }

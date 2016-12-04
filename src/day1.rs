@@ -14,19 +14,23 @@ enum Direction {
 
 fn get_new_facing(current_dir: &Direction, turn_dir: &str) -> Direction {
     let new_dir = match turn_dir {
-        "R" => match *current_dir {
-            Direction::North => Direction::East,
-            Direction::South => Direction::West,
-            Direction::East => Direction::South,
-            Direction::West => Direction::North
-        },
-        "L" => match *current_dir {
-            Direction::North => Direction::West,
-            Direction::South => Direction::East,
-            Direction::East => Direction::North,
-            Direction::West => Direction::South
-        },
-        _ => panic!("no")
+        "R" => {
+            match *current_dir {
+                Direction::North => Direction::East,
+                Direction::South => Direction::West,
+                Direction::East => Direction::South,
+                Direction::West => Direction::North,
+            }
+        }
+        "L" => {
+            match *current_dir {
+                Direction::North => Direction::West,
+                Direction::South => Direction::East,
+                Direction::East => Direction::North,
+                Direction::West => Direction::South,
+            }
+        }
+        _ => panic!("no"),
     };
     return new_dir;
 }
@@ -35,13 +39,13 @@ fn update_position(mut x: i32, mut y: i32, current_dir: &Direction, distance: i3
     x += match *current_dir {
         Direction::East => distance,
         Direction::West => -distance,
-        _ => 0
+        _ => 0,
     };
 
     y += match *current_dir {
         Direction::North => distance,
         Direction::South => -distance,
-        _ => 0
+        _ => 0,
     };
 
     (x, y)
