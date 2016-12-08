@@ -2,24 +2,8 @@ extern crate regex;
 extern crate crypto;
 
 mod common;
-mod day1;
-mod day2;
-mod day3;
-mod day4;
-mod day5;
+mod day6;
 
 fn main() {
-    println!("day1::task1() = {:?}", day1::task1());
-    println!("day1::task2() = {:?}", day1::task2());
-
-    println!("day2::task1() = {:?}", day2::task1());
-    println!("day2::task2() = {:?}", day2::task2());
-
-    println!("day3::task1() = {:?}", day3::task1());
-    println!("day3::task2() = {:?}", day3::task2());
-
-    println!("day4::task1() = {:?}", day4::task1());
-    println!("day4::task2() = {:?}", day4::task2());
-
-    println!("day5::task1() = {:?}", day5::task1());
+    println!("day6::task1() = {:?}", day6::task1());
 }
