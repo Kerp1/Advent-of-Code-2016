@@ -4,9 +4,8 @@ extern crate regex;
 extern crate crypto;
 
 mod common;
-mod day7;
+mod day8;
 
 fn main() {
-    println!("day7::task1() = {:?}", day7::task1());
-    println!("day7::task2() = {:?}", day7::task2());
+    println!("day8::task1() = {:?}", day8::task1());
 }
