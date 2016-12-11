@@ -41,10 +41,8 @@ fn handle_rotation(rotation_type: &str, index: usize, amount: usize, screen: &mu
     }
 }
 
-
-pub fn task1() -> u32 {
-    let data = common::read_file(String::from("input/day8.txt")).unwrap();
-    let mut screen = create_screen(50, 6);
+fn decrypt_screen(data: &str) -> Vec<Vec<u32>> {
+  let mut screen = create_screen(50, 6);
 
     let rect = Regex::new(r"rect\s+(\d+)x(\d+)").unwrap();
     let rotation = Regex::new(r"rotate\s+(row|column)\s+(x|y)=(\d+)\s+by\s+(\d+)").unwrap();
@@ -62,5 +60,26 @@ pub fn task1() -> u32 {
                             &mut screen);
         }
     }
-    screen.iter().map(|v: &Vec<u32>| v.iter().sum()).collect::<Vec<u32>>().iter().sum()
+    screen
+}
+
+
+pub fn task1() -> u32 {
+    let data = common::read_file(String::from("input/day8.txt")).unwrap();
+    decrypt_screen(&data).iter().map(|v: &Vec<u32>| v.iter().sum()).collect::<Vec<u32>>().iter().sum()
+}
+
+pub fn task2() {
+  let data = common::read_file(String::from("input/day8.txt")).unwrap();
+  let screen = decrypt_screen(&data);
+  for v in screen {
+    for x in v {
+      if x == 1 {
+        print!("{:?}", x);
+      } else {
+        print!(" ");
+      }
+    }
+    println!("");
+  }
 }
